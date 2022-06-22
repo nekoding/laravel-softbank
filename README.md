@@ -1,4 +1,4 @@
-# Very short description of the package
+# Softbank Payment API Client for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/nekoding/laravel-softbank.svg?style=flat-square)](https://packagist.org/packages/nekoding/laravel-softbank)
 [![Total Downloads](https://img.shields.io/packagist/dt/nekoding/laravel-softbank.svg?style=flat-square)](https://packagist.org/packages/nekoding/laravel-softbank)
