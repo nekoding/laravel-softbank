@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='Shift_JIS' ?>
+<sps-api-response id="ST02-00307-101">
+    <res_result>OK</res_result>
+    <res_sps_transaction_id>C30132002ST020030710100175231499</res_sps_transaction_id>
+    <res_process_date>20220622000000</res_process_date>
+    <res_err_code/>
+    <res_date>20220622113320</res_date>
+</sps-api-response>

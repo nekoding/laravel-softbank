@@ -1,0 +1,58 @@
+{
+    "name": "nekoding/laravel-softbank",
+    "description": "Softbank Payment API Client for Laravel",
+    "keywords": [
+        "nekoding",
+        "laravel-softbank"
+    ],
+    "homepage": "https://github.com/nekoding/laravel-softbank",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Enggar Tivandi",
+            "email": "me@enggartivandi.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "doctrine/annotations": "^1.13",
+        "guzzlehttp/guzzle": "^7.4",
+        "illuminate/support": "^8.0",
+        "symfony/property-access": "^5.4",
+        "symfony/serializer": "^5.4"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nekoding\\LaravelSoftbank\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Nekoding\\LaravelSoftbank\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit tests --stop-on-failure",
+        "test-coverage": "vendor/bin/phpunit tests --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Nekoding\\LaravelSoftbank\\LaravelSoftbankServiceProvider"
+            ],
+            "aliases": {
+                "LaravelSoftbank": "Nekoding\\LaravelSoftbank\\LaravelSoftbankFacade"
+            }
+        }
+    }
+}
