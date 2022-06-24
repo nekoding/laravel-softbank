@@ -18,6 +18,14 @@ composer require nekoding/laravel-softbank
 
 Work in progress
 
+### Feature
+
+- [x] CC create transaction
+- [x] CC confirm transaction
+- [x] CC sales transaction
+- [x] CC refund transaction
+- [x] CC partial refund transaction
+
 ### Testing
 
 ```bash
