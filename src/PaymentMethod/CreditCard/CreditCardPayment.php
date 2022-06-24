@@ -5,18 +5,9 @@ namespace Nekoding\LaravelSoftbank\PaymentMethod\CreditCard;
 use Nekoding\LaravelSoftbank\Contract\Payload;
 use Nekoding\LaravelSoftbank\Contract\PaymentMethod\CreditCard;
 use Nekoding\LaravelSoftbank\Contract\Response;
-use Nekoding\LaravelSoftbank\PaymentMethod\SoftbankResponse;
-use Nekoding\LaravelSoftbank\Traits\HttpClient\SoftbankHttpClient;
-use Nekoding\LaravelSoftbank\Traits\Payload\CanChangeRequestId;
-use Nekoding\LaravelSoftbank\Traits\Payload\PayloadSerializer;
 
-class CreditCardPayment implements CreditCard
+class CreditCardPayment extends CreditCard
 {
-
-    use PayloadSerializer;
-    use SoftbankHttpClient;
-    use CanChangeRequestId;
-
     protected $paymentRequestId         = 'ST01-00101-101';
     protected $confirmationRequestId    = 'ST02-00101-101';
     protected $salesRequestId           = 'ST02-00201-101';
@@ -32,20 +23,6 @@ class CreditCardPayment implements CreditCard
     protected $deleteCardInfoRequestId  = '';
     protected $getCardInfoRequestId     = '';
 
-
-    public function createRequest(Payload $payload, string $requestId): Response
-    {
-        $body = $this->generatePayload($payload, $requestId);
-
-        $response = $this->postData($body, ['username' => $payload->getAuthUsername(), 'password' => $payload->getAuthPassword()]);
-
-        /**
-         * @var \Nekoding\LaravelSoftbank\PaymentMethod\SoftbankResponse
-         */
-        $result = $this->deserializeData($response->body(), SoftbankResponse::class);
-
-        return $result;
-    }
 
     public function createTransaction(Payload $payload): Response
     {

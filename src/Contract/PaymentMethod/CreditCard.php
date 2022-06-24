@@ -6,7 +6,7 @@ use Nekoding\LaravelSoftbank\Contract\Payload;
 use Nekoding\LaravelSoftbank\Contract\PaymentService;
 use Nekoding\LaravelSoftbank\Contract\Response;
 
-interface CreditCard extends PaymentService
+abstract class CreditCard extends PaymentService
 {
     
     /**
@@ -15,7 +15,7 @@ interface CreditCard extends PaymentService
      * @param  \Nekoding\LaravelSoftbank\Contract\Payload $payload
      * @return Response
      */
-    public function partialRefundTransaction(Payload $payload): Response;
+    public abstract function partialRefundTransaction(Payload $payload): Response;
     
     /**
      * saveCard
@@ -23,6 +23,6 @@ interface CreditCard extends PaymentService
      * @param  \Nekoding\LaravelSoftbank\Contract\Payload $payload
      * @return Response
      */
-    public function saveCard(Payload $payload): Response;
+    public abstract function saveCard(Payload $payload): Response;
 
 }
