@@ -403,13 +403,13 @@ class LaravelSoftbankTest extends TestCase
     {
         $softbank = new LaravelSoftbank;
 
-        $random = uniqid("test");
+        $customerID = uniqid("test");
 
         $payload = $softbank->payload();
         $payload->setMerchantId("30132");
         $payload->setServiceId('002');
         $payload->setHashKey("8435dbd48f2249807ec216c3d5ecab714264cc4a");
-        $payload->setCustomerCode($random);
+        $payload->setCustomerCode($customerID);
         $payload->setEncryptFlag(0);
 
         $creditCard = new CreditCardPayload();
@@ -483,6 +483,102 @@ class LaravelSoftbankTest extends TestCase
 
         $this->assertEquals("NG", $res->getResResult());
         $this->assertIsArray($res->getErrorMessages());
+    }
+
+    public function test_payment_using_saved_card_success()
+    {
+        $softbank = new LaravelSoftbank;
+
+        $payload = $softbank->payload();
+        $payload->setMerchantId("30132");
+        $payload->setServiceId('002');
+        $payload->setHashKey("8435dbd48f2249807ec216c3d5ecab714264cc4a");
+
+        $customerID = 'test62b579b43e677';
+
+        $payload->setCustomerCode($customerID);
+        $payload->setOrderId(uniqid());
+        $payload->setItemId("ITEMID00000000000000000000000001");
+        $payload->setAmount(100);
+        $payload->setReturnFlag(1);
+        $payload->setRequestDate("20220625114212");
+        $payload->setEncryptFlag(0);
+
+        $creditCard = new CreditCardPayload();
+        $creditCard->setCardBrandReturnFlag(1);
+
+        $payload->setPaymentMethodInfo($creditCard);
+
+        $payload->setPayloadHash(sha1(
+            $payload->getMerchantId() .
+            $payload->getServiceId() . 
+            $payload->getCustomerCode() . 
+            $payload->getOrderId() . 
+            $payload->getItemId() . 
+            $payload->getAmount() . 
+            $payload->getReturnFlag() . 
+            $creditCard->getCardBrandReturnFlag() . 
+            $payload->getEncryptFlag() . 
+            $payload->getRequestDate() . 
+            $payload->getHashKey()
+        ));
+
+        Http::fake([
+            '*' => Http::response(file_get_contents(__DIR__ . '/mock/cc_payment_using_saved_card_success.xml'))
+        ]);
+
+        $res = $softbank->creditCard()->createTransaction($payload);
+
+        $this->assertEquals("OK", $res->getResResult());
+        $this->assertNull($res->getErrorMessages());
+    }
+
+    public function test_payment_using_saved_card_failed()
+    {
+        $softbank = new LaravelSoftbank;
+
+        $payload = $softbank->payload();
+        $payload->setMerchantId("30132");
+        $payload->setServiceId('002');
+        $payload->setHashKey("8435dbd48f2249807ec216c3d5ecab714264cc4a");
+
+        $customerID = 'test62b579b43e677';
+
+        $payload->setCustomerCode($customerID);
+        $payload->setOrderId(uniqid());
+        $payload->setItemId("ITEMID00000000000000000000000001");
+        $payload->setAmount(100);
+        $payload->setReturnFlag(1);
+        $payload->setRequestDate("20220625114212");
+        $payload->setEncryptFlag(0);
+
+        $creditCard = new CreditCardPayload();
+        $creditCard->setCardBrandReturnFlag(1);
+
+        $payload->setPaymentMethodInfo($creditCard);
+
+        $payload->setPayloadHash(sha1(
+            $payload->getMerchantId() .
+            $payload->getServiceId() . 
+            $payload->getCustomerCode() . 
+            $payload->getOrderId() . 
+            $payload->getItemId() . 
+            $payload->getAmount() . 
+            $payload->getReturnFlag() . 
+            $creditCard->getCardBrandReturnFlag() . 
+            $payload->getEncryptFlag() . 
+            $payload->getRequestDate() . 
+            $payload->getHashKey()
+        ));
+
+        Http::fake([
+            '*' => Http::response(file_get_contents(__DIR__ . '/mock/cc_payment_using_saved_card_failed.xml'))
+        ]);
+
+        $res = $softbank->creditCard()->createTransaction($payload);
+
+        $this->assertEquals("NG", $res->getResResult());
+        $this->assertNotNull($res->getErrorMessages());
     }
 
 }

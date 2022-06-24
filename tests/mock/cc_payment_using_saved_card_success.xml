@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='Shift_JIS' ?>
+<sps-api-response id="ST01-00101-101">
+    <res_result>OK</res_result>
+    <res_sps_transaction_id>C30132002ST010010110100198281952</res_sps_transaction_id>
+    <res_tracking_id>00000641010572</res_tracking_id>
+    <res_pay_method_info>
+        <cc_company_code>99665</cc_company_code>
+        <cardbrand_code>M</cardbrand_code>
+        <recognized_no>429943</recognized_no>
+    </res_pay_method_info>
+    <res_sps_info>
+        <res_sps_cust_no>557951454487</res_sps_cust_no>
+        <res_sps_payment_no>001</res_sps_payment_no>
+    </res_sps_info>
+    <res_process_date>20220624174556</res_process_date>
+    <res_err_code/>
+    <res_date>20220624174555</res_date>
+</sps-api-response>
