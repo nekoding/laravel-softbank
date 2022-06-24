@@ -5,6 +5,10 @@ namespace Nekoding\LaravelSoftbank;
 use Illuminate\Support\Facades\Facade;
 
 /**
+ * 
+ * @method static \Nekoding\LaravelSoftbank\Contract\Payload payload()
+ * @method static \Nekoding\LaravelSoftbank\Contract\PaymentMethod\CreditCard creditCard()
+ * 
  * @see \Nekoding\LaravelSoftbank\Skeleton\SkeletonClass
  */
 class LaravelSoftbankFacade extends Facade
