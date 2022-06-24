@@ -399,4 +399,90 @@ class LaravelSoftbankTest extends TestCase
         $this->assertIsArray($res->getErrorMessages());
     }
 
+    public function test_save_credit_card_using_cardinfo_success()
+    {
+        $softbank = new LaravelSoftbank;
+
+        $random = uniqid("test");
+
+        $payload = $softbank->payload();
+        $payload->setMerchantId("30132");
+        $payload->setServiceId('002');
+        $payload->setHashKey("8435dbd48f2249807ec216c3d5ecab714264cc4a");
+        $payload->setCustomerCode($random);
+        $payload->setEncryptFlag(0);
+
+        $creditCard = new CreditCardPayload();
+        $creditCard->setCcNumber("5250729026209007");
+        $creditCard->setCcExpiration("201103");
+        $creditCard->setCcSecurityCode("798");
+
+        $payload->setPaymentMethodInfo($creditCard);
+        $payload->setRequestDate("20220625114212");
+
+        $payload->setPayloadHash(sha1(
+            $payload->getMerchantId() .
+            $payload->getServiceId() . 
+            $payload->getCustomerCode() .
+            $creditCard->getCcNumber() . 
+            $creditCard->getCcExpiration() . 
+            $creditCard->getCcSecurityCode() . 
+            $payload->getEncryptFlag() . 
+            $payload->getRequestDate() . 
+            $payload->getHashKey()
+        ));
+
+        Http::fake([
+            '*' => Http::response(file_get_contents(__DIR__ . '/mock/cc_save_card_success.xml'))
+        ]);
+
+        $res = $softbank->creditCard()->saveCard($payload);
+
+        $this->assertEquals("OK", $res->getResResult());
+        $this->assertNull($res->getErrorMessages());
+    }
+
+    public function test_save_credit_card_using_cardinfo_failed()
+    {
+        $softbank = new LaravelSoftbank;
+
+        $random = uniqid("test");
+
+        $payload = $softbank->payload();
+        $payload->setMerchantId("30132");
+        $payload->setServiceId('002');
+        $payload->setHashKey("8435dbd48f2249807ec216c3d5ecab714264cc4a");
+        $payload->setCustomerCode($random);
+        $payload->setEncryptFlag(0);
+
+        $creditCard = new CreditCardPayload();
+        $creditCard->setCcNumber("5250729026209007");
+        $creditCard->setCcExpiration("201103");
+        $creditCard->setCcSecurityCode("798");
+
+        $payload->setPaymentMethodInfo($creditCard);
+        $payload->setRequestDate("20220625114212");
+
+        $payload->setPayloadHash(sha1(
+            $payload->getMerchantId() .
+            $payload->getServiceId() . 
+            $payload->getCustomerCode() .
+            $creditCard->getCcNumber() . 
+            $creditCard->getCcExpiration() . 
+            $creditCard->getCcSecurityCode() . 
+            $payload->getEncryptFlag() . 
+            $payload->getRequestDate() . 
+            $payload->getHashKey()
+        ));
+
+        Http::fake([
+            '*' => Http::response(file_get_contents(__DIR__ . '/mock/cc_save_card_failed.xml'))
+        ]);
+
+        $res = $softbank->creditCard()->saveCard($payload);
+
+        $this->assertEquals("NG", $res->getResResult());
+        $this->assertIsArray($res->getErrorMessages());
+    }
+
 }

@@ -5,6 +5,8 @@ namespace Nekoding\LaravelSoftbank\Contract;
 interface PaymentService
 {
 
+    public function createRequest(Payload $payload, string $requestId): Response;
+
     /**
      * createTransaction
      *

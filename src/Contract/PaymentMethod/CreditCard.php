@@ -16,5 +16,13 @@ interface CreditCard extends PaymentService
      * @return Response
      */
     public function partialRefundTransaction(Payload $payload): Response;
+    
+    /**
+     * saveCard
+     *
+     * @param  \Nekoding\LaravelSoftbank\Contract\Payload $payload
+     * @return Response
+     */
+    public function saveCard(Payload $payload): Response;
 
 }

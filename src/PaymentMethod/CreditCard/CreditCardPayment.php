@@ -27,14 +27,15 @@ class CreditCardPayment implements CreditCard
     protected $continueCancelRequestId  = '';
     protected $continueCancelNoticeId   = '';
     
-    protected $saveCardInfoRequestId    = '';
+    protected $saveCardInfoRequestId    = 'MG02-00101-101';
     protected $updateCardInfoRequestId  = '';
     protected $deleteCardInfoRequestId  = '';
     protected $getCardInfoRequestId     = '';
 
-    public function createTransaction(Payload $payload): Response
+
+    public function createRequest(Payload $payload, string $requestId): Response
     {
-        $body = $this->generatePayload($payload, $this->requestId ?? $this->paymentRequestId);
+        $body = $this->generatePayload($payload, $requestId);
 
         $response = $this->postData($body, ['username' => $payload->getAuthUsername(), 'password' => $payload->getAuthPassword()]);
 
@@ -44,62 +45,35 @@ class CreditCardPayment implements CreditCard
         $result = $this->deserializeData($response->body(), SoftbankResponse::class);
 
         return $result;
+    }
+
+    public function createTransaction(Payload $payload): Response
+    {
+        return $this->createRequest($payload, $this->paymentRequestId);
     }
 
     public function confirmTransaction(Payload $payload): Response
     {
-
-        $body = $this->generatePayload($payload, $this->requestId ?? $this->confirmationRequestId);
-
-        $response = $this->postData($body, ['username' => $payload->getAuthUsername(), 'password' => $payload->getAuthPassword()]);
-
-        /**
-         * @var \Nekoding\LaravelSoftbank\PaymentMethod\SoftbankResponse
-         */
-        $result = $this->deserializeData($response->body(), SoftbankResponse::class);
-
-        return $result;
+        return $this->createRequest($payload, $this->confirmationRequestId);
     }
 
     public function marksTransactionSales(Payload $payload): Response
     {
-        $body = $this->generatePayload($payload, $this->requestId ?? $this->salesRequestId);
-
-        $response = $this->postData($body, ['username' => $payload->getAuthUsername(), 'password' => $payload->getAuthPassword()]);
-
-        /**
-         * @var \Nekoding\LaravelSoftbank\PaymentMethod\SoftbankResponse
-         */
-        $result = $this->deserializeData($response->body(), SoftbankResponse::class);
-
-        return $result;
+        return $this->createRequest($payload, $this->salesRequestId);
     }
 
     public function refundTransaction(Payload $payload): Response
     {
-        $body = $this->generatePayload($payload, $this->requestId ?? $this->refundRequestId);
-
-        $response = $this->postData($body, ['username' => $payload->getAuthUsername(), 'password' => $payload->getAuthPassword()]);
-
-        /**
-         * @var \Nekoding\LaravelSoftbank\PaymentMethod\SoftbankResponse
-         */
-        $result = $this->deserializeData($response->body(), SoftbankResponse::class);
-
-        return $result;
+        return $this->createRequest($payload, $this->refundRequestId);
     }
 
     public function partialRefundTransaction(Payload $payload): Response
     {
-        $body = $this->generatePayload($payload, $this->requestId ?? $this->partialRefundRequestId);
+        return $this->createRequest($payload, $this->partialRefundRequestId);
+    }
 
-        $response = $this->postData($body, ['username' => $payload->getAuthUsername(), 'password' => $payload->getAuthPassword()]);
-
-        /**
-         * @var \Nekoding\LaravelSoftbank\PaymentMethod\SoftbankResponse
-         */
-        $result = $this->deserializeData($response->body(), SoftbankResponse::class);
-
-        return $result;
+    public function saveCard(Payload $payload): Response
+    {
+        return $this->createRequest($payload, $this->saveCardInfoRequestId);
     }
 }
