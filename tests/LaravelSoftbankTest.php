@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Support\Facades\Http;
 use Nekoding\LaravelSoftbank\LaravelSoftbank;
 use Nekoding\LaravelSoftbank\PaymentMethod\CreditCard\CreditCardPayload;
+use Nekoding\LaravelSoftbank\PaymentMethod\SoftbankPayload;
 use Orchestra\Testbench\Concerns\CreatesApplication;
 
 class LaravelSoftbankTest extends TestCase
@@ -579,6 +580,39 @@ class LaravelSoftbankTest extends TestCase
 
         $this->assertEquals("NG", $res->getResResult());
         $this->assertNotNull($res->getErrorMessages());
+    }
+
+    public function test_compose_array_params()
+    {
+
+        $params = [
+            'merchant_id' => '12345',
+            'service_id'  => '001',
+            'cust_code' => '001',
+            'order_id' => '001',
+            'item_id' => '001',
+            'amount'    => 001,
+            'request_date' => '20220720110909',
+            'sps_hashcode' => sha1(
+                'merchant_id' . 
+                'service_id' . 
+                'customer id' . 
+                'order id' . 
+                'item id' . 
+                'amount' . 
+                'request date' . 
+                'hash key'
+            )
+        ];
+
+        $softbankPayload = SoftbankPayload::compose($params);
+
+        $this->assertTrue($softbankPayload instanceof SoftbankPayload);
+
+        $this->assertEquals($params['merchant_id'], $softbankPayload->getMerchantId());
+        $this->assertEquals($params['service_id'], $softbankPayload->getServiceId());
+        $this->assertEquals($params['cust_code'], $softbankPayload->getCustomerCode());
+
     }
 
 }

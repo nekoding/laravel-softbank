@@ -7,6 +7,14 @@ use Symfony\Component\Serializer\Annotation\Ignore;
 
 interface Payload
 {
+    
+    /**
+     * Compose payload data
+     *
+     * @return self
+     */
+    public static function compose(array $params): self;
+
     /**
      * Get the value of merchantId
      * 

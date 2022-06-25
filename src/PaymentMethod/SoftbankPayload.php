@@ -5,6 +5,18 @@ namespace Nekoding\LaravelSoftbank\PaymentMethod;
 use Nekoding\LaravelSoftbank\Contract\Payload;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Serializer\Annotation\Ignore;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
+use Symfony\Component\Serializer\NameConverter\MetadataAwareNameConverter;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class SoftbankPayload implements Payload
 {
@@ -105,6 +117,31 @@ class SoftbankPayload implements Payload
     public function getMerchantId(): ?string
     {
         return $this->merchantId;
+    }
+    
+    /**
+     * compose payload parameters
+     *
+     * @param  array $params
+     * @return self
+     * 
+     */
+    public static function compose(array $params): Payload
+    {
+        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+
+        $metadataAwareNameConverter = new MetadataAwareNameConverter($classMetadataFactory);
+
+        $objectNormalizer = new ObjectNormalizer($classMetadataFactory, $metadataAwareNameConverter);
+
+        $normalizers = [$objectNormalizer, new ArrayDenormalizer(), new GetSetMethodNormalizer()];
+
+        $serializer = new Serializer($normalizers, []);
+
+        /**
+         * @return self
+         */
+        return $serializer->denormalize($params, self::class);
     }
 
     /**

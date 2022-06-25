@@ -24,5 +24,29 @@ abstract class CreditCard extends PaymentService
      * @return Response
      */
     public abstract function saveCard(Payload $payload): Response;
+    
+    /**
+     * saveCardToken
+     *
+     * @param  \Nekoding\LaravelSoftbank\Contract\Payload $payload
+     * @return Response
+     */
+    // public abstract function saveCardToken(Payload $payload): Response;
+    
+    /**
+     * updateCard
+     *
+     * @param  \Nekoding\LaravelSoftbank\Contract\Payload $payload
+     * @return Response
+     */
+    // public abstract function updateCard(Payload $payload): Response;
+    
+    /**
+     * deleteCard
+     *
+     * @param  \Nekoding\LaravelSoftbank\Contract\Payload $payload
+     * @return Response
+     */
+    // public abstract function deleteCard(Payload $payload): Response;
 
 }

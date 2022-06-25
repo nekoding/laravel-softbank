@@ -10,7 +10,12 @@ use Nekoding\LaravelSoftbank\PaymentMethod\SoftbankPayload;
 class LaravelSoftbank
 {
 
-
+    
+    /**
+     * payload
+     *
+     * @return \Nekoding\LaravelSoftbank\PaymentMethod\SoftbankPayload
+     */
     public function payload(): Payload
     {
         return new SoftbankPayload();
