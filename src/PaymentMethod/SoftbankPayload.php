@@ -203,7 +203,13 @@ class SoftbankPayload implements Payload
      */ 
     public function getAuthUsername(): ?string
     {
-        return $this->merchantId . $this->serviceId;
+        $username = $this->merchantId . $this->serviceId;
+
+        if ($username) {
+            return $username;
+        }
+
+        return config('laravel-softbank.merchant_id') . config('laravel-softbank.service_id');
     }
 
     /**
@@ -214,7 +220,13 @@ class SoftbankPayload implements Payload
      */ 
     public function getAuthPassword(): ?string
     {
-        return $this->hashKey;
+        $password = $this->hashKey;
+
+        if ($password) {
+            return $password;
+        }
+
+        return config('laravel-softbank.hash_key');
     }
 
     /**

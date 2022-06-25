@@ -11,9 +11,7 @@ trait SoftbankHttpClient
 
     public function postData(string $xmlData, array $auth = []): Response
     {
-        return Http::withBasicAuth(
-            $auth['username'] ?? config('laravel-softbank.merchant_id') . config('laravel-softbank.service_id'), 
-            $auth['password'] ?? config('laravel-softbank.hash_key'))
+        return Http::withBasicAuth($auth['username'], $auth['password'])
             ->withBody($xmlData, 'application/xml')
             ->post(config('laravel-softbank.api_endpoint') ?? $this->apiEndpoint);
     }
