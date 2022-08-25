@@ -9,11 +9,11 @@ interface Payload
 {
     
     /**
-     * Compose payload data
+     * Create payload data
      *
      * @return self
      */
-    public static function compose(array $params): self;
+    public static function create(array $params): self;
 
     /**
      * Get the value of merchantId
@@ -281,4 +281,46 @@ interface Payload
      */ 
     public function setPaymentOption($paymentOption): self;
 
+    
+    /**
+     * getSpsCustNo
+     *
+     * @return string
+     */
+    public function getSpsCustNo(): ?string;
+    
+    /**
+     * setSpsCustNo
+     *
+     * @param  mixed $spsCustNo
+     * @return self
+     */
+    public function setSpsCustNo($spsCustNo): self;
+    
+    /**
+     * getSpsPaymentNo
+     *
+     * @return string
+     */
+    public function getSpsPaymentNo(): ?string;
+    
+    /**
+     * setSpsPaymentNo
+     *
+     * @param  mixed $spsPaymentNo
+     * @return self
+     */
+    public function setSpsPaymentNo($spsPaymentNo) :self;
+
+    /**
+     * Get the value of responseInfoType
+     */ 
+    public function getResponseInfoType(): ?string;
+
+    /**
+     * Set the value of responseInfoType
+     *
+     * @return  self
+     */ 
+    public function setResponseInfoType($responseInfoType): Payload;
 }

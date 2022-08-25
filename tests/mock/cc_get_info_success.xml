@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='Shift_JIS' ?>
+<sps-api-response id="MG02-00104-101">
+    <res_result>OK</res_result>
+    <res_sps_transaction_id>C30132103MG020010410100715452733</res_sps_transaction_id>
+    <res_pay_method_info>
+        <cc_number>************0620</cc_number>
+        <cc_expiration>202412</cc_expiration>
+        <cardbrand_code>V</cardbrand_code>
+        <resrv1/>
+        <resrv2/>
+        <resrv3/>
+    </res_pay_method_info>
+    <res_process_date>20220825171607</res_process_date>
+    <res_err_code/>
+    <res_date>20220825171606</res_date>
+</sps-api-response>

@@ -19,9 +19,9 @@ class CreditCardPayment extends CreditCard
     protected $continueCancelNoticeId   = '';
     
     protected $saveCardInfoRequestId    = 'MG02-00101-101';
-    protected $updateCardInfoRequestId  = '';
-    protected $deleteCardInfoRequestId  = '';
-    protected $getCardInfoRequestId     = '';
+    protected $updateCardInfoRequestId  = 'MG02-00132-101';
+    protected $deleteCardInfoRequestId  = 'MG02-00103-101"';
+    protected $getCardInfoRequestId     = 'MG02-00104-101';
 
 
     public function createTransaction(Payload $payload): Response
@@ -52,5 +52,20 @@ class CreditCardPayment extends CreditCard
     public function saveCard(Payload $payload): Response
     {
         return $this->createRequest($payload, $this->saveCardInfoRequestId);
+    }
+
+    public function updateCard(Payload $payload): Response
+    {
+        return $this->createRequest($payload, $this->updateCardInfoRequestId);
+    }
+
+    public function deleteCard(Payload $payload): Response
+    {
+        return $this->createRequest($payload, $this->deleteCardInfoRequestId);
+    }
+
+    public function getCard(Payload $payload): Response
+    {
+        return $this->createRequest($payload, $this->getCardInfoRequestId);
     }
 }

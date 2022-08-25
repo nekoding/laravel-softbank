@@ -43,10 +43,10 @@ class SoftbankResponse implements Response
 
     // Getter and setter
 
-    
-     /**
+
+    /**
      * Get the value of resResult
-     */ 
+     */
     public function getResResult(): ?string
     {
         return $this->resResult;
@@ -56,7 +56,7 @@ class SoftbankResponse implements Response
      * Set the value of resResult
      *
      * @return  self
-     */ 
+     */
     public function setResResult($resResult): Response
     {
         $this->resResult = $resResult;
@@ -66,7 +66,7 @@ class SoftbankResponse implements Response
 
     /**
      * Get the value of resErrorCode
-     */ 
+     */
     public function getResErrorCode(): ?string
     {
         return $this->resErrorCode;
@@ -76,7 +76,7 @@ class SoftbankResponse implements Response
      * Set the value of resErrorCode
      *
      * @return  self
-     */ 
+     */
     public function setResErrorCode($resErrorCode): Response
     {
         $this->resErrorCode = $resErrorCode;
@@ -86,7 +86,7 @@ class SoftbankResponse implements Response
 
     /**
      * Get the value of resDate
-     */ 
+     */
     public function getResDate(): ?string
     {
         return $this->resDate;
@@ -96,7 +96,7 @@ class SoftbankResponse implements Response
      * Set the value of resDate
      *
      * @return  self
-     */ 
+     */
     public function setResDate($resDate): Response
     {
         $this->resDate = $resDate;
@@ -126,7 +126,7 @@ class SoftbankResponse implements Response
 
     /**
      * Get the value of transactionId
-     */ 
+     */
     public function getTransactionId(): ?string
     {
         return $this->transactionId;
@@ -136,7 +136,7 @@ class SoftbankResponse implements Response
      * Set the value of transactionId
      *
      * @return  self
-     */ 
+     */
     public function setTransactionId($transactionId): Response
     {
         $this->transactionId = $transactionId;
@@ -146,7 +146,7 @@ class SoftbankResponse implements Response
 
     /**
      * Get the value of trackingId
-     */ 
+     */
     public function getTrackingId(): ?string
     {
         return $this->trackingId;
@@ -156,7 +156,7 @@ class SoftbankResponse implements Response
      * Set the value of trackingId
      *
      * @return  self
-     */ 
+     */
     public function setTrackingId($trackingId): Response
     {
         $this->trackingId = $trackingId;
@@ -166,7 +166,7 @@ class SoftbankResponse implements Response
 
     /**
      * Get the value of paymentInfo
-     */ 
+     */
     public function getPaymentInfo(): ?array
     {
         return $this->paymentInfo;
@@ -176,12 +176,11 @@ class SoftbankResponse implements Response
      * Set the value of paymentInfo
      *
      * @return  self
-     */ 
+     */
     public function setPaymentInfo($paymentInfo): Response
     {
         $this->paymentInfo = $paymentInfo;
 
         return $this;
     }
-
 }

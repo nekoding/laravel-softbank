@@ -32,7 +32,7 @@ class SoftbankPayload implements Payload
     protected $serviceId;
 
     /**
-     * @Ignore()
+     * @SerializedName("hash_key")
      */
     protected $hashKey;
 
@@ -40,6 +40,26 @@ class SoftbankPayload implements Payload
      * @SerializedName("cust_code")
      */
     protected $customerCode;
+
+    /**
+     * @SerializedName("response_info_type")
+     */
+    protected $responseInfoType;
+
+    /**
+     * @SerializedName("pay_option_manage")
+     */
+    protected $paymentOption;
+
+    /**
+     * @SerializedName("sps_cust_no")
+     */
+    protected $spsCustNo;
+
+    /**
+     * @SerializedName("sps_payment_no")
+     */
+    protected $spsPaymentNo;
 
     /**
      * @SerializedName("order_id")
@@ -107,26 +127,21 @@ class SoftbankPayload implements Payload
     protected $processingDate;
 
     /**
-     * @SerializedName("pay_option_manage")
-     */
-    protected $paymentOption;
-
-    /**
      * Get the value of merchantId
-     */ 
+     */
     public function getMerchantId(): ?string
     {
         return $this->merchantId;
     }
-    
+
     /**
-     * compose payload parameters
+     * create payload parameters
      *
      * @param  array $params
      * @return self
      * 
      */
-    public static function compose(array $params): Payload
+    public static function create(array $params): Payload
     {
         $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
 
@@ -148,7 +163,7 @@ class SoftbankPayload implements Payload
      * Set the value of merchantId
      *
      * @return  self
-     */ 
+     */
     public function setMerchantId($merchantId): Payload
     {
         $this->merchantId = mb_convert_encoding($merchantId, 'Shift_JIS', 'UTF-8');
@@ -158,7 +173,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of serviceId
-     */ 
+     */
     public function getServiceId(): ?string
     {
         return $this->serviceId;
@@ -168,7 +183,7 @@ class SoftbankPayload implements Payload
      * Set the value of serviceId
      *
      * @return  self
-     */ 
+     */
     public function setServiceId($serviceId): Payload
     {
         $this->serviceId = mb_convert_encoding($serviceId, 'Shift_JIS', 'UTF-8');
@@ -178,7 +193,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of hashKey
-     */ 
+     */
     public function getHashKey(): ?string
     {
         return $this->hashKey;
@@ -188,7 +203,7 @@ class SoftbankPayload implements Payload
      * Set the value of hashKey
      *
      * @return  self
-     */ 
+     */
     public function setHashKey($hashKey): Payload
     {
         $this->hashKey = mb_convert_encoding($hashKey, 'Shift_JIS', 'UTF-8');
@@ -200,7 +215,7 @@ class SoftbankPayload implements Payload
      *
      * @return  string
      * @Ignore()
-     */ 
+     */
     public function getAuthUsername(): ?string
     {
         $username = $this->merchantId . $this->serviceId;
@@ -217,7 +232,7 @@ class SoftbankPayload implements Payload
      *
      * @return  string
      * @Ignore()
-     */ 
+     */
     public function getAuthPassword(): ?string
     {
         $password = $this->hashKey;
@@ -231,7 +246,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of customerCode
-     */ 
+     */
     public function getCustomerCode(): ?string
     {
         return $this->customerCode;
@@ -241,7 +256,7 @@ class SoftbankPayload implements Payload
      * Set the value of customerCode
      *
      * @return  self
-     */ 
+     */
     public function setCustomerCode($customerCode): Payload
     {
         $this->customerCode = mb_convert_encoding($customerCode, 'Shift_JIS', 'UTF-8');
@@ -251,7 +266,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of orderId
-     */ 
+     */
     public function getOrderId(): ?string
     {
         return $this->orderId;
@@ -261,7 +276,7 @@ class SoftbankPayload implements Payload
      * Set the value of orderId
      *
      * @return  self
-     */ 
+     */
     public function setOrderId($orderId): Payload
     {
         $this->orderId = mb_convert_encoding($orderId, 'Shift_JIS', 'UTF-8');
@@ -271,7 +286,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of itemId
-     */ 
+     */
     public function getItemId(): ?string
     {
         return $this->itemId;
@@ -281,7 +296,7 @@ class SoftbankPayload implements Payload
      * Set the value of itemId
      *
      * @return  self
-     */ 
+     */
     public function setItemId($itemId): Payload
     {
         $this->itemId = mb_convert_encoding($itemId, 'Shift_JIS', 'UTF-8');
@@ -291,7 +306,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of itemName
-     */ 
+     */
     public function getItemName(): ?string
     {
         return $this->itemName;
@@ -301,7 +316,7 @@ class SoftbankPayload implements Payload
      * Set the value of itemName
      *
      * @return  self
-     */ 
+     */
     public function setItemName($itemName): Payload
     {
         $this->itemName = base64_encode(mb_convert_encoding($itemName, 'Shift_JIS', 'UTF-8'));
@@ -311,7 +326,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of tax
-     */ 
+     */
     public function getTax(): ?int
     {
         return $this->tax;
@@ -321,7 +336,7 @@ class SoftbankPayload implements Payload
      * Set the value of tax
      *
      * @return  self
-     */ 
+     */
     public function setTax($tax): Payload
     {
         $this->tax = mb_convert_encoding($tax, 'Shift_JIS', 'UTF-8');
@@ -330,7 +345,7 @@ class SoftbankPayload implements Payload
     }
     /**
      * Get the value of amount
-     */ 
+     */
     public function getAmount(): ?int
     {
         return $this->amount;
@@ -340,7 +355,7 @@ class SoftbankPayload implements Payload
      * Set the value of amount
      *
      * @return  self
-     */ 
+     */
     public function setAmount($amount): Payload
     {
         $this->amount = mb_convert_encoding($amount, 'Shift_JIS', 'UTF-8');
@@ -350,7 +365,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of returnFlag
-     */ 
+     */
     public function getReturnFlag(): ?int
     {
         return $this->returnFlag;
@@ -360,7 +375,7 @@ class SoftbankPayload implements Payload
      * Set the value of returnFlag
      *
      * @return  self
-     */ 
+     */
     public function setReturnFlag($returnFlag): Payload
     {
         $this->returnFlag = mb_convert_encoding($returnFlag, 'Shift_JIS', 'UTF-8');
@@ -370,7 +385,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of encryptFlag
-     */ 
+     */
     public function getEncryptFlag(): ?int
     {
         return $this->encryptFlag;
@@ -380,7 +395,7 @@ class SoftbankPayload implements Payload
      * Set the value of encryptFlag
      *
      * @return  self
-     */ 
+     */
     public function setEncryptFlag($encryptFlag): Payload
     {
         $this->encryptFlag = mb_convert_encoding($encryptFlag, 'Shift_JIS', 'UTF-8');
@@ -390,7 +405,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of requestDate
-     */ 
+     */
     public function getRequestDate(): ?string
     {
         return $this->requestDate;
@@ -400,7 +415,7 @@ class SoftbankPayload implements Payload
      * Set the value of requestDate
      *
      * @return  self
-     */ 
+     */
     public function setRequestDate($requestDate): Payload
     {
         $this->requestDate = mb_convert_encoding($requestDate, 'Shift_JIS', 'UTF-8');
@@ -410,7 +425,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of paymentMethodInfo
-     */ 
+     */
     public function getPaymentMethodInfo()
     {
         return $this->paymentMethodInfo;
@@ -420,7 +435,7 @@ class SoftbankPayload implements Payload
      * Set the value of paymentMethodInfo
      *
      * @return  self
-     */ 
+     */
     public function setPaymentMethodInfo($paymentMethodInfo): Payload
     {
         $this->paymentMethodInfo = $paymentMethodInfo;
@@ -430,7 +445,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of payloadHash
-     */ 
+     */
     public function getPayloadHash(): ?string
     {
         return $this->payloadHash;
@@ -440,7 +455,7 @@ class SoftbankPayload implements Payload
      * Set the value of payloadHash
      *
      * @return  self
-     */ 
+     */
     public function setPayloadHash($payloadHash): Payload
     {
         $this->payloadHash = mb_convert_encoding($payloadHash, 'Shift_JIS', 'UTF-8');
@@ -450,7 +465,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of transactionId
-     */ 
+     */
     public function getTransactionId(): ?string
     {
         return $this->transactionId;
@@ -460,7 +475,7 @@ class SoftbankPayload implements Payload
      * Set the value of transactionId
      *
      * @return  self
-     */ 
+     */
     public function setTransactionId($transactionId): Payload
     {
         $this->transactionId = $transactionId;
@@ -470,7 +485,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of trackingId
-     */ 
+     */
     public function getTrackingId(): ?string
     {
         return $this->trackingId;
@@ -480,7 +495,7 @@ class SoftbankPayload implements Payload
      * Set the value of trackingId
      *
      * @return  self
-     */ 
+     */
     public function setTrackingId($trackingId): Payload
     {
         $this->trackingId = $trackingId;
@@ -490,7 +505,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of processingDate
-     */ 
+     */
     public function getProcessingDate(): ?string
     {
         return $this->processingDate;
@@ -500,7 +515,7 @@ class SoftbankPayload implements Payload
      * Set the value of processingDate
      *
      * @return  self
-     */ 
+     */
     public function setProcessingDate($processingDate): Payload
     {
         $this->processingDate = $processingDate;
@@ -510,7 +525,7 @@ class SoftbankPayload implements Payload
 
     /**
      * Get the value of paymentOption
-     */ 
+     */
     public function getPaymentOption()
     {
         return $this->paymentOption;
@@ -520,10 +535,70 @@ class SoftbankPayload implements Payload
      * Set the value of paymentOption
      *
      * @return  self
-     */ 
+     */
     public function setPaymentOption($paymentOption): Payload
     {
         $this->paymentOption = $paymentOption;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of spsCustNo
+     */
+    public function getSpsCustNo(): ?string
+    {
+        return $this->spsCustNo;
+    }
+
+    /**
+     * Set the value of spsCustNo
+     *
+     * @return  self
+     */
+    public function setSpsCustNo($spsCustNo): Payload
+    {
+        $this->spsCustNo = $spsCustNo;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of spsPaymentNo
+     */
+    public function getSpsPaymentNo(): ?string
+    {
+        return $this->spsPaymentNo;
+    }
+
+    /**
+     * Set the value of spsPaymentNo
+     *
+     * @return  self
+     */
+    public function setSpsPaymentNo($spsPaymentNo): Payload
+    {
+        $this->spsPaymentNo = $spsPaymentNo;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of responseInfoType
+     */
+    public function getResponseInfoType(): ?string
+    {
+        return $this->responseInfoType;
+    }
+
+    /**
+     * Set the value of responseInfoType
+     *
+     * @return  self
+     */
+    public function setResponseInfoType($responseInfoType): Payload
+    {
+        $this->responseInfoType = $responseInfoType;
 
         return $this;
     }

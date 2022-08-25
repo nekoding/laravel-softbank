@@ -39,7 +39,7 @@ abstract class CreditCard extends PaymentService
      * @param  \Nekoding\LaravelSoftbank\Contract\Payload $payload
      * @return Response
      */
-    // public abstract function updateCard(Payload $payload): Response;
+    public abstract function updateCard(Payload $payload): Response;
     
     /**
      * deleteCard
@@ -47,6 +47,14 @@ abstract class CreditCard extends PaymentService
      * @param  \Nekoding\LaravelSoftbank\Contract\Payload $payload
      * @return Response
      */
-    // public abstract function deleteCard(Payload $payload): Response;
+    public abstract function deleteCard(Payload $payload): Response;
+
+    /**
+     * getCard
+     *
+     * @param  \Nekoding\LaravelSoftbank\Contract\Payload $payload
+     * @return Response
+     */
+    public abstract function getCard(Payload $payload): Response;
 
 }
