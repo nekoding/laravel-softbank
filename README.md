@@ -25,7 +25,10 @@ Work in progress
 - [x] CC sales transaction
 - [x] CC refund transaction
 - [x] CC partial refund transaction
-
+- [x] CC save card using cust_code
+- [x] CC get info
+- [] CC update
+- [] CC delete
 ### Testing
 
 ```bash

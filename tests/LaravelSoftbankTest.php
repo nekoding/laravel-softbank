@@ -408,8 +408,8 @@ class LaravelSoftbankTest extends TestCase
 
         $payload = $softbank->payload();
         $payload->setMerchantId("30132");
-        $payload->setServiceId('002');
-        $payload->setHashKey("8435dbd48f2249807ec216c3d5ecab714264cc4a");
+        $payload->setServiceId('103');
+        $payload->setHashKey("ed679e1c9f90c2ab96b25d5c580b58e25192eb5d");
         $payload->setCustomerCode($customerID);
         $payload->setEncryptFlag(0);
 
@@ -419,7 +419,7 @@ class LaravelSoftbankTest extends TestCase
         $creditCard->setCcSecurityCode("798");
 
         $payload->setPaymentMethodInfo($creditCard);
-        $payload->setRequestDate("20220625114212");
+        $payload->setRequestDate("20220925114212");
 
         $payload->setPayloadHash(sha1(
             $payload->getMerchantId() .
@@ -492,17 +492,17 @@ class LaravelSoftbankTest extends TestCase
 
         $payload = $softbank->payload();
         $payload->setMerchantId("30132");
-        $payload->setServiceId('002');
-        $payload->setHashKey("8435dbd48f2249807ec216c3d5ecab714264cc4a");
+        $payload->setServiceId('103');
+        $payload->setHashKey("ed679e1c9f90c2ab96b25d5c580b58e25192eb5d");
 
-        $customerID = 'test62b579b43e677';
+        $customerID = '14790b9d-88df-4b7c-867d-6a551d64d0d9';
 
         $payload->setCustomerCode($customerID);
         $payload->setOrderId(uniqid());
         $payload->setItemId("ITEMID00000000000000000000000001");
         $payload->setAmount(100);
         $payload->setReturnFlag(1);
-        $payload->setRequestDate("20220625114212");
+        $payload->setRequestDate("20220925114212");
         $payload->setEncryptFlag(0);
 
         $creditCard = new CreditCardPayload();
@@ -605,7 +605,7 @@ class LaravelSoftbankTest extends TestCase
             )
         ];
 
-        $softbankPayload = SoftbankPayload::compose($params);
+        $softbankPayload = SoftbankPayload::create($params);
 
         $this->assertTrue($softbankPayload instanceof SoftbankPayload);
 
@@ -613,6 +613,49 @@ class LaravelSoftbankTest extends TestCase
         $this->assertEquals($params['service_id'], $softbankPayload->getServiceId());
         $this->assertEquals($params['cust_code'], $softbankPayload->getCustomerCode());
 
+    }
+
+    public function test_get_credit_card_info()
+    {
+        $softbank = new LaravelSoftbank;
+
+        $time = '20220925084920';
+
+        $hash = 'ed679e1c9f90c2ab96b25d5c580b58e25192eb5d';
+
+        $data = [
+            'merchant_id'           => '30132',
+            'hash_key'              => $hash,
+            'service_id'            => '103',
+            'cust_code'             => '550519da-5e69-4fa0-9120-17ed582b8fec',
+            'response_info_type'    => '2',
+            'pay_option_manage'     => [
+                'cardbrand_return_flg' => 1
+            ],
+            'encrypted_flg'         => 0,
+            'request_date'          => $time,
+            'sps_hashcode'          => sha1(
+                '30132' . 
+                '103' . 
+                '550519da-5e69-4fa0-9120-17ed582b8fec' . 
+                '2' . 
+                '1' .
+                '0' .
+                $time . 
+                $hash)
+        ];
+
+        $payload = SoftbankPayload::create($data);
+
+        Http::fake([
+            '*' => Http::response(file_get_contents(__DIR__ . '/mock/cc_get_info_success.xml'))
+        ]);
+
+        $result = $softbank->creditCard()->getCard($payload);
+
+        $this->assertNull($result->getErrorMessages());
+
+        $this->assertEquals('OK', $result->getResResult());
     }
 
 }
