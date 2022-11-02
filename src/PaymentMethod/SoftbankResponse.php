@@ -110,14 +110,10 @@ class SoftbankResponse implements Response
     public function getErrorMessages(): ?array
     {
         if ($this->getResResult() == 'NG') {
-            $methodCode = substr($this->getResErrorCode(), 0, 3);
-            $typeCode = substr($this->getResErrorCode(), 3, 2);
-            $itemCode = substr($this->getResErrorCode(), 5);
-
             return [
-                PaymentMethod::parseErrorCode($methodCode),
-                PaymentType::parseErrorCode($methodCode, $typeCode),
-                PaymentItem::parseErrorCode($methodCode, $itemCode)
+                PaymentMethod::parseErrorCode($this->getResErrorCode()),
+                PaymentType::parseErrorCode($this->getResErrorCode()),
+                PaymentItem::parseErrorCode($this->getResErrorCode())
             ];
         }
 
