@@ -14,7 +14,7 @@ class LaravelSoftbankServiceProvider extends ServiceProvider
         /*
          * Optional methods to load your package assets
          */
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'laravel-softbank');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'laravel-softbank');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-softbank');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
