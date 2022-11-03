@@ -32,7 +32,7 @@ return [
         "227" => "token",
         "228" => "token key",
         "229" => "permanent token ",
-        "000" => "Unused error code",
+        "900" => "Unused error code",
     ],
 
     "_" => [
@@ -67,5 +67,6 @@ return [
         "028" => "3DES encryption flag",
         "029" => "Date processed",
         "030" => "Occurs only for credit card payments in ST01",
+        "999" => "No applicable item"
     ]
 ];
