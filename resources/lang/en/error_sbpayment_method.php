@@ -1,0 +1,32 @@
+<?php
+
+return [
+    "101" => "Indicates that an error occurred during credit card payment.",
+    "305" => "An error occurred with Rakuten Pay (online payment).",
+    "306" => "Indicates a PayPal payment error.",
+    "307" => "This indicates that an error occurred in the Yahoo! Wallet digital conversion version.",
+    "309" => "An error occurred in Recruit Easy Payment.",
+    "310" => "An error occurred in LINE Pay.",
+    "311" => "An error has occurred with PayPay (online payment).",
+    "313" => "An error occurred in the wallet payment service (Type-Y).",
+    "314" => "An error has occurred in Merpay Net payment.",
+    "315" => "An error occurred with Amazon Pay.",
+    "316" => "An error has occurred in Epos Easy Payment.",
+    "401" => "Indicates an error occurred with d payment (carrier).",
+    "402" => "Indicates that an error occurred in au Easy Payment.",
+    "405" => "Indicates that an error occurred in SoftBank Collective Payment (B).",
+    "406" => "An error has occurred with au PAY (Internet payment).",
+    "510" => "Indicates an error code for Alipay international payment.",
+    "513" => "Indicates that an error occurred during JCB PREMO or House Prepaid Payment.",
+    "514" => "Indicates that an error occurred during UnionPay online payment.",
+    "601" => "Indicates an error occurred with Apple Pay.",
+    "604" => "Indicates an error occurred with Google Pay.",
+    "701" => "Indicates that an error occurred in convenience store payment.",
+    "702" => "Indicates that an error has occurred in the general transfer settlement.",
+    "703" => "Indicates a Pay-easy payment error.",
+    "710" => "Indicates that an error occurred in NP Postpay.",
+    "805" => "Indicates that an error has occurred in Eikyufumetsu Point payment.",
+    "806" => "An error occurred in the T point program (online payment).",
+    "912" => "Indicates an error occurred with the email link type.",
+    "999" => "Indicates that an error occurred in a common item."
+];
