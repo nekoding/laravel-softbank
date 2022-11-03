@@ -13,7 +13,7 @@ class PaymentItem
                 return trans($errorMessage, [], config('laravel-softbank.error_message_locale') ?? 'en');
             }
 
-            $fallbackErrorMessage = sprintf("laravel-softbank::error_sbpayment_type._.%s", substr($code, 5, 3));
+            $fallbackErrorMessage = sprintf("laravel-softbank::error_sbpayment_item._.%s", substr($code, 5, 3));
 
             if (trans($fallbackErrorMessage) != $fallbackErrorMessage) {
                 return trans($fallbackErrorMessage, [], config('laravel-softbank.error_message_locale') ?? 'en');
